@@ -1,0 +1,4 @@
+# etc/hosts
+192.168.0.100 left_router
+192.168.0.101 right_router
+192.168.0.200 mgmt_server

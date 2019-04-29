@@ -1,0 +1,7 @@
+# etc/hosts
+192.168.0.1 oob_switch
+192.168.0.2 switch
+192.168.0.3 router01
+192.168.0.4 router02
+192.168.0.100 server
+192.168.0.200 mgmt

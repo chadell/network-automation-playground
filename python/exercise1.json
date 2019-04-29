@@ -1,0 +1,42 @@
+[
+    "left_router": {
+        "mgmt_ip": "192.168.1.100",
+        "interfaces": [
+            "eth1": {
+                "description": "Connecting to right_router",
+                "ip_addresses": ["10.0.0.1/30"]
+            },
+            "lo": {
+                "description": "Loopback interface",
+                "ip_addresses": ["172.17.0.1/24", "172.18.0.1/24"]
+            }
+        ],
+        "bgp": {
+            "local_as": 65000,
+            "remote_as": 65000,
+            "local_ip": "10.0.0.1",
+            "remote_ip": "10.0.0.2",
+            "advertised_prefixes": ["172.17.0.0/24", "172.18.0.0/24"]
+        }
+    },
+    "right_router": {
+        "mgmt_ip": "192.168.1.101",
+        "interfaces": [
+            "eth1": {
+                "description": "Connecting to right_router",
+                "ip_addresses": ["10.0.0.2/30"]
+            },
+            "lo": {
+                "description": "Loopback interface",
+                "ip_addresses": ["172.27.0.1/24", "172.28.0.1/24"]
+            }
+        ],
+        "bgp": {
+            "local_as": 65000,
+            "remote_as": 65000,
+            "local_ip": "10.0.0.2",
+            "remote_ip": "10.0.0.1",
+            "advertised_prefixes": ["172.27.0.0/24", "172.28.0.0/24"]
+        }
+    }
+]
