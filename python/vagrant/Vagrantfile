@@ -4,20 +4,19 @@
 Vagrant.require_version('>= 2.0')
 unless Vagrant.has_plugin?('vagrant-vyos')
   system('vagrant plugin install vagrant-vyos') || exit!
-  exit system('vagrant', *ARGV)
 end
 
 Vagrant.configure(2) do |config|
 
-  ##### DEFINE VM for left_router #####
-  config.vm.define "router" do |device|
+  ##### DEFINE VM for leftrouter #####
+  config.vm.define "leftrouter" do |device|
     
-    device.vm.hostname = "router" 
+    device.vm.hostname = "leftrouter" 
     device.vm.box = "higebu/vyos"
     device.vm.box_version = "1.1.7"
 
     device.vm.provider "virtualbox" do |v|
-      v.name = "left_router"
+      v.name = "leftrouter"
       v.memory = 768
     end
     #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
@@ -33,14 +32,14 @@ Vagrant.configure(2) do |config|
   end
 
   ##### DEFINE VM for right_router #####
-  config.vm.define "router" do |device|
+  config.vm.define "rightrouter" do |device|
     
-    device.vm.hostname = "router" 
+    device.vm.hostname = "rightrouter" 
     device.vm.box = "higebu/vyos"
     device.vm.box_version = "1.1.7"
 
     device.vm.provider "virtualbox" do |v|
-      v.name = "left_router"
+      v.name = "rightrouter"
       v.memory = 768
     end
     #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
@@ -50,7 +49,7 @@ Vagrant.configure(2) do |config|
       # link for eth --> oob-mgmt-switch:
       device.vm.network "private_network", ip: "192.168.0.101"
 
-      # link for eth --> left_router
+      # link for eth --> right_router
       device.vm.network "private_network", virtualbox__intnet: "net5", auto_config: false
 
   end
@@ -66,7 +65,7 @@ Vagrant.configure(2) do |config|
       v.memory = 512
     end
     #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
-    device.vm.synced_folder ".", "/vagrant", disabled: false
+    device.vm.synced_folder "../", "/vagrant", disabled: true
 
     device.vm.network "private_network", ip: "192.168.0.200"
 
